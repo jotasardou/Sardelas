@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="630" height="500" viewBox="0 0 630 500">
+ <rect width="630" height="500" fill="#081320"/>
+ <g stroke="#183447" stroke-width="1" opacity=".7"><path d="M350 0V500M390 0V500M430 0V500M470 0V500M510 0V500M550 0V500M590 0V500M320 60H630M320 100H630M320 140H630M320 180H630M320 220H630M320 260H630M320 300H630M320 340H630M320 380H630M320 420H630"/></g>
+ <rect x="40" y="38" width="10" height="10" fill="#93F5C0"/><text x="64" y="49" font-family="DejaVu Sans,sans-serif" font-size="13" fill="#93F5C0" letter-spacing="2">LABORATÓRIO DE APRENDIZADO</text>
+ <g font-family="DejaVu Sans,sans-serif" font-weight="bold" fill="#E8F3F5"><text x="35" y="166" font-size="78">NEURO</text><text x="35" y="248" font-size="78">RUN</text></g>
+ <text x="40" y="302" font-family="DejaVu Sans,sans-serif" font-size="22" font-weight="bold" fill="#93F5C0">Aprenda. Desvie. Evolua.</text>
+ <g stroke="#40757C" stroke-width="2"><path d="M484 208L400 120M484 208L575 124M484 208L568 326M484 208L401 337"/></g>
+ <circle cx="484" cy="208" r="66" fill="#102538" stroke="#93F5C0" stroke-width="5"/>
+ <g transform="translate(448 167)"><rect x="0" y="0" width="72" height="84" fill="#E8F3F5"/><rect x="8" y="14" width="56" height="32" fill="#102538"/><rect x="18" y="24" width="10" height="12" fill="#93F5C0"/><rect x="44" y="24" width="10" height="12" fill="#93F5C0"/><rect x="22" y="60" width="28" height="9" fill="#35A8B9"/></g>
+ <path d="M400 101L415 120L400 139L385 120Z" fill="#FBD16D"/><path d="M575 105L590 124L575 143L560 124Z" fill="#FBD16D"/>
+ <path d="M568 308L588 328L568 348L548 328Z" fill="#FF6F91"/><path d="M401 320L421 340L401 360L381 340Z" fill="#FF6F91"/>
+ <rect x="40" y="365" width="287" height="48" fill="#93F5C0"/><text x="57" y="395" font-family="DejaVu Sans,sans-serif" font-size="15" font-weight="bold" fill="#081320">MISSÃO MACHINE LEARNING</text>
+ <path d="M40 441H590" stroke="#24485C"/><text x="40" y="473" font-family="DejaVu Sans,sans-serif" font-size="13" fill="#9CB5C5">6 SETORES   /   18 DESAFIOS   /   AÇÃO + CONHECIMENTO</text>
+</svg>
