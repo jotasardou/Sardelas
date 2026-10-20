@@ -1,0 +1,25 @@
+{
+  "url": "http://localhost:43987/",
+  "browser": "Chrome via Playwright",
+  "audio": {
+    "states": [
+      "running"
+    ],
+    "peaks": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.014819602482020855
+    ]
+  },
+  "errors": [],
+  "fullscreen": true,
+  "canvas": {
+    "x": 0,
+    "y": 0,
+    "width": 1100,
+    "height": 800
+  }
+}

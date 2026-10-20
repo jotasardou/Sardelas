@@ -4,11 +4,13 @@ Aluno: **João Pedro Sardou**. Prazo do PDF: **20/10/2026 às 23h50, horário de
 
 ## Arquivos
 
-- `NeuroRun-WebGL.zip`: jogo compilado; será gerado a partir de `Builds/WebGL`.
+- `NeuroRun-WebGL.zip`: jogo compilado a partir de `Builds/WebGL`, com `index.html` na raiz.
 - `cover.png`: capa para o itch.io, gerada a partir de `cover.svg`.
 - Capturas PNG do menu, arena e quiz: material para a página.
 - `ITCH_PAGE.html`: descrição pronta para inserir no editor HTML da página.
 - `validation.txt`: resultado da validação integrada no Unity.
+- `build-report.json` e `browser-test.json`: compilação e teste real no Chrome, incluindo áudio e fullscreen.
+- `SHA256SUMS.txt`: checksum do ZIP final.
 
 ## Publicar no itch.io
 
@@ -27,7 +29,7 @@ O ZIP deve conter `index.html` na raiz e todas as pastas do build. O vídeo foi 
 
 1. Abra https://itch.io/jam/projeto-intro-unity-insper-20262.
 2. Entre na Jam com **Join jam** se ainda não estiver inscrito.
-3. Use **Submit your project**, selecione NeuroRun e preencha os campos da disciplina.
+3. Use **Submit your project**, selecione NeuroRun e escolha **Engenharia de Computação**, conforme informado pelo aluno.
 4. Confirme que o jogo aparece na lista de submissões; publicar no itch.io não faz isso automaticamente.
 5. No Blackboard, envie os links completos do jogo, do repositório público e da submissão na Jam, conforme o formulário da atividade.
 6. Guarde a confirmação de envio do Blackboard. O PDF diz que o trabalho não conta como entregue sem esse registro completo.
@@ -35,8 +37,8 @@ O ZIP deve conter `index.html` na raiz e todas as pastas do build. O vídeo foi 
 ## Status
 
 - Implementação e validação no Editor: concluídas; ver `validation.txt`.
-- Build WebGL e teste no navegador: em preparação.
-- GitHub público e código enviado: pendente.
+- Build WebGL e teste no Chrome: concluídos. ZIP verificado, `index.html` na raiz, 17 arquivos e aproximadamente 18 MB.
+- GitHub público e código enviado: confirmado em https://github.com/jotasardou/Sardelas.
 - Página itch.io publicada: pendente.
 - Submissão na Jam: pendente.
 - Registro no Blackboard: depende do acesso do aluno e permanece pendente até confirmação.

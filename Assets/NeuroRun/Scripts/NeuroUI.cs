@@ -68,8 +68,11 @@ namespace NeuroRun
             var colors = button.colors; colors.highlightedColor = new Color(.80f, 1, .91f); colors.selectedColor = new Color(.68f, .9f, .80f);
             colors.pressedColor = new Color(.52f, .76f, .67f); button.colors = colors;
             var outline = image.gameObject.AddComponent<Outline>(); outline.effectColor = primary ? Mint : Border; outline.effectDistance = Vector2.one;
-            var text = Label(image.transform, value, 16, 0, w - 32, h, 19, primary ? Ink : White, true);
-            text.alignment = TextAnchor.MiddleLeft;
+            // Botões pequenos do HUD precisam de menos margem para caber em 960x600.
+            bool compact = h < 40;
+            float padding = compact ? 8 : 16;
+            var text = Label(image.transform, value, padding, 0, w - padding * 2, h, compact ? 16 : 19, primary ? Ink : White, true);
+            text.alignment = compact ? TextAnchor.MiddleCenter : TextAnchor.MiddleLeft;
             button.onClick.AddListener(() => { game.sound.Play(NeuroAudio.Cue.Click); action(); });
             return button;
         }

@@ -23,8 +23,11 @@
 /[Uu]ser[Ss]ettings/
 *.log
 /Delivery/*.zip
+/Delivery/browser-console.json
 /Assets/Delivery/
 /Assets/Delivery.meta
+/Assets/Resources/PerformanceTestRunInfo.json*
+/Assets/Resources/PerformanceTestRunSettings.json*
 
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
 *.blend1

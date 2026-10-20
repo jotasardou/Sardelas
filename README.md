@@ -7,6 +7,8 @@
 **Perfil itch.io:** https://jotasardou.itch.io/  
 **Game Jam:** https://itch.io/jam/projeto-intro-unity-insper-20262
 
+![Menu do NeuroRun](Delivery/menu-webgl.png)
+
 ## Como jogar
 
 Você é o agente N-01. Recupere o conhecimento de seis setores de um laboratório digital:
@@ -102,6 +104,10 @@ A compilação não é versionada no Git, por ser um artefato gerado. O ZIP de e
 | Publicação | WebGL; checklist e texto para itch.io em `Delivery/` |
 
 Os testes de integração verificam colisão, movimento por gamepad virtual, coleta real por trigger, pausa, derrota por tempo/vida, penalidade de resposta errada, reinício e vitória pelos seis setores. O relatório está em `Delivery/validation.txt`.
+
+O build final também foi testado no Chrome por HTTP: menu, movimentação por teclado, coleta dos três dados, quiz, feedback, continuação, pausa e tela cheia. O contexto de áudio ficou ativo após o clique e produziu amostras sonoras. Não houve erros JavaScript ou erros de execução no console. Evidências: `Delivery/browser-test.json` e capturas `*-webgl.png`.
+
+`Delivery/build-report.json` registra `Succeeded`. O erro contado nesse relatório é o timeout de 5 segundos da chamada do Unity Pipeline que iniciou a compilação; a Unity continuou e concluiu o build. Os quatro avisos finais são do toolchain WebGPU sobre versões do Firefox. A validação de navegador foi feita no Chrome; Firefox não foi testado.
 
 ## Créditos e referências
 
