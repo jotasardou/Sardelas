@@ -124,7 +124,8 @@ O build arcade também foi testado no Chrome por HTTP: menu, guia, movimentaçã
 - **Concepção e projeto acadêmico:** João Pedro Sardou.
 - **Assistência de programação, conteúdo, arte procedural e documentação:** OpenAI Codex, durante o desenvolvimento deste projeto. O histórico do repositório registra a implementação.
 - **Base didática:** [Tutorial Introdução Rápida, disciplina Jogos Digitais — Insper](https://slender-ceder-1da.notion.site/Tutorial-Introdu-o-R-pida-1a6d1ae1773780a7a59cf823a8b599ec?pvs=4). A implementação de NeuroRun usa esses conceitos, com scripts próprios.
-- **Sprites, capa e UI:** pixel art original em matrizes 16×16 e uma capa vetorial própria. As matrizes dos sprites estão em `NeuroRunBuilder.cs`. A inspiração mecânica em jogos de labirinto, como Pac-Man, não utiliza assets ou código desses jogos.
+- **Sprites, capa e UI:** pixel art original em matrizes 16×16 e uma capa vetorial própria. As matrizes dos sprites estão em `NeuroRunBuilder.cs`.
+- **Referência de design — [Pac-Man (site oficial)](https://www.pacman.com/en/):** inspiração para o labirinto visto de cima, a coleta de pontos nos corredores, o movimento contínuo e a perseguição por inimigos. NeuroRun usa mapas, personagens, sprites, áudio e código próprios; não utiliza assets nem código de Pac-Man.
 - **Música e efeitos do jogo final:** síntese original por `Tools/generate_audio.py`, sem gravações externas.
 - **Fontes DejaVu Sans / Sans Mono:** projeto DejaVu / Bitstream Vera. Licença incluída em `Assets/NeuroRun/Fonts/LICENSE-DejaVu.txt`.
 - **Unity:** engine, template Universal 2D e pacotes oficiais indicados em `Packages/manifest.json`; recursos do template conservam suas licenças.
