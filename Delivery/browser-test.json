@@ -1,5 +1,6 @@
 {
-  "url": "http://localhost:43987/",
+  "version": "arcade",
+  "url": "http://localhost:37587/",
   "browser": "Chrome via Playwright",
   "audio": {
     "states": [
@@ -11,15 +12,15 @@
       0,
       0,
       0,
-      0.014819602482020855
+      0,
+      0,
+      0,
+      0,
+      0.004689066205173731
     ]
   },
   "errors": [],
   "fullscreen": true,
-  "canvas": {
-    "x": 0,
-    "y": 0,
-    "width": 1100,
-    "height": 800
-  }
+  "input_test": "menu, guia, partida, movimento, curvas, dash, pausa com mouse/teclado",
+  "quiz_test": "fixture visual por SendMessage somente no navegador de teste; progressão completa testada no Editor"
 }

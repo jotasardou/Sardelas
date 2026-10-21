@@ -7,7 +7,7 @@ namespace NeuroRun
     public class NeuroRunGame : MonoBehaviour
     {
         public enum GameState { Menu, Playing, Quiz, Feedback, SectorComplete, Paused, Won, Lost, Guide }
-        public Sprite square, diamond, ring, robot, bug;
+        public Sprite square, diamond, ring, robot, bug, coffee;
         public Material spriteMaterial;
         public GameObject playerPrefab, bugPrefab, dataPrefab;
         public Font regularFont, boldFont;
@@ -21,6 +21,15 @@ namespace NeuroRun
         public int Score { get; private set; }
         public int Health { get; private set; }
         public int Data { get; private set; }
+        public int Bits { get; private set; }
+        public int BitsNeeded { get; private set; }
+        public MazeGrid Maze { get; private set; }
+        public float SectorTime { get; private set; }
+        public float CoffeeTime { get; private set; }
+        public bool TerminalReady => Data >= 6 && Bits >= BitsNeeded;
+        public bool Alarm => Data >= 5 || Remaining <= 25;
+        public float TimeLimit => 95 - Sector * 3;
+        public void SetBitTarget(int count) { BitsNeeded = count; }
         public int Solved { get; private set; }
         public int FirstTry { get; private set; }
         public float Remaining { get; private set; }
@@ -29,7 +38,7 @@ namespace NeuroRun
         public Lesson Lesson => LessonData.All[Sector];
         public Question CurrentQuestion => Lesson.questions[questionIndex];
         public int[] OptionMap { get; private set; } = { 0, 1, 2 };
-        public int BestScore => PlayerPrefs.GetInt("NeuroRun.Best", 0);
+        public int BestScore => PlayerPrefs.GetInt("NeuroRun.ArcadeBest", 0);
         GameObject world;
         Transform terminal;
         int questionIndex, checkpointScore, checkpointFirstTry, guidePage;
@@ -47,10 +56,10 @@ namespace NeuroRun
             // Mantém a arena inteira visível mesmo em fullscreen com outra proporção.
             float scale = Mathf.Min(Screen.width / 1280f, Screen.height / 720f);
             float left = (Screen.width - 1280 * scale) / 2, bottom = (Screen.height - 720 * scale) / 2;
-            worldCamera.rect = new Rect((left + 32 * scale) / Screen.width, (bottom + 93.6f * scale) / Screen.height,
-                896 * scale / Screen.width, 489.6f * scale / Screen.height);
-            float aspect = 896f / 489.6f;
-            worldCamera.orthographicSize = Mathf.Max(5.2f, 10.2f / aspect);
+            worldCamera.rect = new Rect((left + 32 * scale) / Screen.width, (bottom + 82 * scale) / Screen.height,
+                960 * scale / Screen.width, 544 * scale / Screen.height);
+            float aspect = 960f / 544f;
+            worldCamera.orthographicSize = Mathf.Max(5.4f, 9.8f / aspect);
             var k = Keyboard.current; var pad = Gamepad.current;
             bool pause = (k != null && k.escapeKey.wasPressedThisFrame) || (pad != null && pad.startButton.wasPressedThisFrame);
             if (pause) { if (IsPlaying) Pause(); else if (State == GameState.Paused) Resume(); }
@@ -62,16 +71,13 @@ namespace NeuroRun
             }
             if (IsPlaying)
             {
-                Remaining -= Time.deltaTime; Elapsed += Time.deltaTime;
+                Remaining -= Time.deltaTime; Elapsed += Time.deltaTime; SectorTime += Time.deltaTime; CoffeeTime = Mathf.Max(0, CoffeeTime - Time.deltaTime);
                 if (Remaining <= 0) { Remaining = 0; Lose("O tempo deste setor acabou."); }
-                else if (Data >= 3 && Vector2.Distance(Player.transform.position, terminal.position) < .85f) OpenQuestion();
+                else if (TerminalReady && Vector2.Distance(Player.transform.position, terminal.position) < .28f) OpenQuestion();
                 if (Time.unscaledTime > toastUntil) Toast = "";
             }
-            if (terminal != null && Data >= 3)
-            {
-                terminal.GetComponent<SpriteRenderer>().color = new Color(.45f, 1, .76f);
-                terminal.Rotate(0, 0, 18 * Time.deltaTime);
-            }
+            if (terminal != null)
+                terminal.GetComponent<SpriteRenderer>().color = TerminalReady ? new Color(1, .88f, .51f) : new Color(.42f,.48f,.51f);
             ui.UpdateHUD();
         }
         public void StartMission()
@@ -83,26 +89,44 @@ namespace NeuroRun
         void StartSector()
         {
             ClearWorld();
+            Maze = new MazeGrid(Sector);
             world = ArenaFactory.Build(this, Sector, out var player, out terminal); Player = player;
             worldCamera.enabled = true;
-            Health = 3; Data = 0; Remaining = 70; questionIndex = 0; missedQuestion = false;
+            Health = 3; Data = 0; Bits = 0; CoffeeTime = 0; SectorTime = 0; Remaining = TimeLimit; questionIndex = 0; missedQuestion = false;
             State = GameState.Playing; ui.ShowHUD();
-            Tell("Colete os 3 dados dourados. Depois, entre no núcleo central.");
+            Tell("6 disquetes + " + BitsNeeded + " pontos. Depois, terminal no centro.");
         }
         void ClearWorld()
         { if (world != null) { world.SetActive(false); Destroy(world); } }
         public void CollectData()
         {
             if (!IsPlaying) return;
-            Data++; Score += 25; Remaining += 3; sound.Play(NeuroAudio.Cue.Collect);
-            Tell(Data == 3 ? "NÚCLEO LIBERADO! Entre no círculo verde central." : "+25 pontos · +3 segundos · dado recuperado");
+            Data++; Score += 100; Remaining += 2; sound.Play(NeuroAudio.Cue.Collect);
+            Tell(TerminalReady ? "TERMINAL ABERTO. Vá para o centro!" : Data == 5 ? "ALARME! Eles ficaram mais rápidos." : "Disquete " + Data + "/6. +100 pontos, +2s.");
+        }
+        public void CollectBit()
+        {
+            if (!IsPlaying) return;
+            Bits++; Score += 5;
+            if (Bits % 6 == 0) sound.Play(NeuroAudio.Cue.Collect);
+            if (TerminalReady) Tell("TERMINAL ABERTO. Vá para o centro!");
+        }
+        public void DrinkCoffee()
+        {
+            CoffeeTime = 4; Score += 50; sound.Play(NeuroAudio.Cue.Dash);
+            Tell("CAFÉ! Bugs parados por 4 segundos. Aproveite.");
         }
         public void TakeDamage()
         {
             if (!IsPlaying || Player.Invulnerable) return;
-            Health--; sound.Play(NeuroAudio.Cue.Damage);
-            if (Health <= 0) Lose("Os bugs esgotaram sua integridade.");
-            else { Player.ResetPosition(new Vector2(0, -3.6f)); Tell("Integridade perdida. Você tem 2 segundos de proteção."); }
+            Health--; Remaining = Mathf.Max(0, Remaining - 6); sound.Play(NeuroAudio.Cue.Damage);
+            if (Health <= 0) Lose("Três vidas. Os bugs levaram as três.");
+            else
+            {
+                Player.ResetPosition(Maze.Position(Maze.Spawn));
+                foreach (var enemy in world.GetComponentsInChildren<BugEnemy>()) enemy.ResetPatrol();
+                Tell("Pegaram você. −1 vida, −6s. Os itens coletados continuam salvos.");
+            }
         }
         void OpenQuestion()
         {
@@ -133,7 +157,7 @@ namespace NeuroRun
         public void ContinueFeedback()
         {
             if (State != GameState.Feedback) return;
-            if (Remaining <= 0) { Lose("As penalidades esgotaram o tempo do setor."); return; }
+            if (Remaining <= 0) { Lose("Acabou o tempo. As respostas erradas custaram caro."); return; }
             if (!feedbackCorrect) { OpenQuestion(); return; }
             questionIndex++; missedQuestion = false;
             if (questionIndex < Lesson.questions.Length) { OpenQuestion(); return; }
@@ -141,8 +165,8 @@ namespace NeuroRun
             if (Sector == LessonData.All.Length - 1)
             {
                 State = GameState.Won; sound.Play(NeuroAudio.Cue.Win);
-                if (Score > BestScore) { PlayerPrefs.SetInt("NeuroRun.Best", Score); PlayerPrefs.Save(); }
-                ui.ShowResult(true, "Você recuperou os seis setores do laboratório.");
+                if (Score > BestScore) { PlayerPrefs.SetInt("NeuroRun.ArcadeBest", Score); PlayerPrefs.Save(); }
+                ui.ShowResult(true, "Seis labirintos. Dezoito respostas. Pode encerrar o plantão.");
             }
             else { State = GameState.SectorComplete; sound.Play(NeuroAudio.Cue.Win); ui.ShowSectorComplete(); }
         }

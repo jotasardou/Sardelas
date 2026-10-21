@@ -1,0 +1,13 @@
+Projeto Introdução ao Unity — NeuroRun
+Aluno: João Pedro Sardou
+Curso: Engenharia de Computação
+
+Jogo WebGL: https://jotasardou.itch.io/neurorun
+Código-fonte público: https://github.com/jotasardou/Sardelas
+Game Jam da disciplina: https://itch.io/jam/projeto-intro-unity-insper-20262
+
+NeuroRun é um jogo 2D de labirinto, perseguição e perguntas de Machine Learning,
+com seis setores e 18 desafios. Inclui cronômetro, score, vidas, dash, menu, pausa,
+reinício, música, efeitos sonoros e suporte a teclado e controle.
+
+Os créditos, as referências, os controles e a documentação estão no README do GitHub.

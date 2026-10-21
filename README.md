@@ -1,37 +1,46 @@
 # NeuroRun
 
-**Aprenda. Desvie. Evolua.** Um jogo 2D de ação e perguntas sobre Machine Learning, desenvolvido em Unity para o Projeto Introdução ao Unity do Insper.
+**Plantão no laboratório.** Um jogo de labirinto em Unity, com perseguição, coleta e perguntas de Machine Learning. Projeto Introdução ao Unity — Insper.
 
-**Aluno:** João Pedro Sardou  
+**Aluno:** João Pedro Sardou · Engenharia de Computação  
 **Código:** https://github.com/jotasardou/Sardelas  
-**Perfil itch.io:** https://jotasardou.itch.io/  
+**Teste no itch.io (rascunho, exige a conta do autor):** https://jotasardou.itch.io/neurorun  
 **Game Jam:** https://itch.io/jam/projeto-intro-unity-insper-20262
 
 ![Menu do NeuroRun](Delivery/menu-webgl.png)
 
 ## Como jogar
 
-Você é o agente N-01. Recupere o conhecimento de seis setores de um laboratório digital:
+O laboratório fechou, mas os bugs continuam soltos. Para acessar o terminal de cada andar:
 
-1. Colete os três dados dourados de cada arena.
-2. Desvie dos bugs cor-de-rosa. Use o dash para escapar.
-3. Entre no núcleo central quando ele ficar verde.
-4. Resolva três desafios para desbloquear o próximo setor.
+1. Pegue os **seis disquetes** espalhados pelo labirinto.
+2. Colete a cota de pontos de rede indicada na lateral: **125 no primeiro andar**, 65% dos pontos disponíveis em cada mapa.
+3. Volte ao computador no centro. Só então o quiz abre.
+4. Acerte três perguntas para passar ao próximo andar. São seis andares e 18 perguntas.
 
-Cada setor começa com **70 segundos e três vidas**. Coletar um dado acrescenta **3 segundos e 25 pontos**. Respostas erradas custam **8 segundos** e mostram uma explicação antes da nova tentativa. A leitura e as pausas não gastam tempo. Acertar de primeira vale 120 pontos; corrigir uma resposta vale 70. O tempo que sobra no setor vale dois pontos por segundo inteiro.
+O movimento é contínuo, como num fliperama de labirinto: depois de sair, o personagem segue andando. **Aperte a direção antes da esquina** para guardar a curva. É possível inverter o sentido imediatamente.
 
-Ao perder, você pode reiniciar o setor atual ou voltar ao menu. Reiniciar restaura vidas e dados e retorna o score ao início do setor; o tempo total de exploração conserva as tentativas anteriores. O recorde é salvo localmente no navegador depois de uma vitória. Não há segredos obrigatórios nem ações irreversíveis que impeçam completar a partida.
+### Pressão e recursos
+
+- **Três a cinco bugs** buscam caminhos pelos corredores. Um segue o jogador, outro antecipa curvas e os outros tentam cercar. Alternam perseguição com breves períodos de patrulha.
+- **Alarme:** ao pegar o quinto disquete, ou quando restam 25 segundos, os bugs aceleram e deixam de patrulhar.
+- **Dash:** acelera por 0,22s e protege do contato; recarga de **4 segundos**.
+- **Dois cafés por andar:** param os bugs e impedem dano por **4 segundos**. Não reaparecem após uma colisão.
+- **Três vidas:** cada contato tira uma vida e **6 segundos**. Você volta à saída com 2s de proteção, os inimigos voltam às posições iniciais e os itens coletados ficam salvos.
+- O primeiro andar começa com **95 segundos**; os seguintes têm 92, 89, 86, 83 e 80 segundos. Cada disquete acrescenta **2 segundos e 100 pontos**. Pontos pequenos valem 5; café vale 50.
+- O quiz pausa o relógio durante a leitura. Erros custam **8 segundos**, mostram uma explicação e permitem nova tentativa. Acertar de primeira vale 120 pontos; após um erro, 70. O tempo restante vira bônus de 2 pontos por segundo inteiro.
+- Derrota permite reiniciar o andar. O reinício restaura itens/vidas/tempo e o score do começo do andar; o tempo total conserva as tentativas anteriores. O recorde desta versão é separado do recorde da versão inicial.
 
 | Ação | Teclado e mouse | Controle Xbox / compatível |
 | --- | --- | --- |
-| Mover | WASD ou setas | Analógico esquerdo ou direcional |
+| Escolher direção | WASD ou setas | Analógico esquerdo ou direcional |
 | Dash | Espaço ou Shift esquerdo | B |
 | Pausar / retomar | Esc | Start |
 | Escolher resposta | 1, 2, 3 ou clique | Direcional e A |
 | Navegar nos menus | Mouse ou Tab e Enter | Direcional e A |
-| Som | Botão SOM / MUDO | Navegação do menu quando disponível; botão também aceita mouse |
+| Som | Botão SOM / MUDO | Mouse no botão |
 
-**Plataforma:** navegador desktop, WebGL. Celulares e controles físicos específicos não foram validados. O controle foi exercitado com um dispositivo virtual do Unity Input System; faça um teste com o controle real antes da apresentação.
+**Plataforma:** navegador desktop, WebGL. Celulares e controles físicos específicos não foram validados. O controle foi exercitado com um dispositivo virtual do Unity Input System; confira com um controle físico antes da apresentação.
 
 ## Conteúdo dos setores
 
@@ -64,7 +73,8 @@ O jogo usa Rigidbody2D, colliders, triggers, prefabs, scripts MonoBehaviour, Can
 | `RunnerController.cs` | Movimentação, dash, invulnerabilidade e colisões |
 | `BugEnemy.cs` | Patrulha e perseguição variável |
 | `DataPickup.cs` | Coleta por trigger, com proteção contra contagem duplicada |
-| `ArenaFactory.cs` | Paredes e distribuição dos prefabs em cada arena |
+| `MazeGrid.cs` | Mapa de corredores e busca em largura para perseguidores |
+| `ArenaFactory.cs` | Montagem das paredes, disquetes, cafés e pontos |
 | `LessonData.cs` | 18 perguntas, alternativas e explicações |
 | `NeuroUI.cs` | Menu, HUD, guia, perguntas e telas de resultado |
 | `NeuroAudio.cs` | Música, efeitos e opção de silenciar |
@@ -94,29 +104,29 @@ A compilação não é versionada no Git, por ser um artefato gerado. O ZIP de e
 | --- | --- |
 | Tutorial | Cena inicial preservada; física 2D, movimento, coleta, prefabs, áudio, menu e fim de partida na entrega |
 | Tempo | Contagem regressiva, bônus por coleta, penalidade por erro, derrota por tempo e tempo final |
-| Inimigos | Bugs em patrulha; a partir do segundo setor alternam perseguição; contato tira vida |
-| Visual | Sprites próprios, paleta coerente, bot, bugs, dados e núcleo distinguíveis por forma e cor |
+| Inimigos | Bugs buscam rotas, antecipam curvas e alternam patrulha/perseguição; alarme acelera; contato tira vida e tempo |
+| Visual | Pixel art própria, paleta de papel/âmbar/azul, personagem, disquetes, cafés e computador |
 | Áudio | Música original em loop e sete efeitos distintos; botão de som |
 | UI | Score, tempo, integridade, dados, recarga do dash, estado da missão e resultado |
 | Controle | Input System, teclado/mouse e gamepad/Xbox |
-| Level design | Tema ML, seis layouts progressivos e 18 desafios |
+| Level design | Seis labirintos conectados, cotas de coleta, dois cafés por mapa, alarme e 18 perguntas |
 | Menu e recuperação | Menu, guia, pausa, reinício de setor e retorno ao menu após vitória/derrota |
 | Publicação | WebGL; checklist e texto para itch.io em `Delivery/` |
 
-Os testes de integração verificam colisão, movimento por gamepad virtual, coleta real por trigger, pausa, derrota por tempo/vida, penalidade de resposta errada, reinício e vitória pelos seis setores. O relatório está em `Delivery/validation.txt`.
+Os testes de integração verificam conectividade e ausência de becos nos seis mapas, movimento por gamepad virtual, curva antecipada, dash, café, coleta real por trigger, pausa, derrota por tempo, dano, penalidade do quiz, reinício e vitória pelos seis setores. O relatório está em `Delivery/validation.txt`.
 
-O build final também foi testado no Chrome por HTTP: menu, movimentação por teclado, coleta dos três dados, quiz, feedback, continuação, pausa e tela cheia. O contexto de áudio ficou ativo após o clique e produziu amostras sonoras. Não houve erros JavaScript ou erros de execução no console. Evidências: `Delivery/browser-test.json` e capturas `*-webgl.png`.
+O build arcade também foi testado no Chrome por HTTP: menu, guia, movimentação, curvas, coleta, dash, café, pausa e tela cheia. As telas de quiz e feedback foram preparadas por chamadas de teste à instância Unity, somente na sessão do navegador; o desbloqueio por coleta e a progressão dos seis andares foram validados no Editor. O contexto de áudio ficou ativo após o clique e produziu amostras sonoras. Não houve erros JavaScript ou erros de execução no console. Evidências: `Delivery/browser-test.json` e capturas `*-webgl.png`.
 
-`Delivery/build-report.json` registra `Succeeded`. O erro contado nesse relatório é o timeout de 5 segundos da chamada do Unity Pipeline que iniciou a compilação; a Unity continuou e concluiu o build. Os quatro avisos finais são do toolchain WebGPU sobre versões do Firefox. A validação de navegador foi feita no Chrome; Firefox não foi testado.
+`Delivery/build-report.json` registra `Succeeded`. O erro contado nesse relatório é o timeout de 5 segundos da chamada do Unity Pipeline que iniciou a compilação; a Unity continuou e concluiu o build. Os avisos são de shaders do pacote Unity AI Inference e do toolchain WebGPU sobre versões do Firefox. A validação de navegador foi feita no Chrome; Firefox não foi testado.
 
 ## Créditos e referências
 
 - **Concepção e projeto acadêmico:** João Pedro Sardou.
 - **Assistência de programação, conteúdo, arte procedural e documentação:** OpenAI Codex, durante o desenvolvimento deste projeto. O histórico do repositório registra a implementação.
 - **Base didática:** [Tutorial Introdução Rápida, disciplina Jogos Digitais — Insper](https://slender-ceder-1da.notion.site/Tutorial-Introdu-o-R-pida-1a6d1ae1773780a7a59cf823a8b599ec?pvs=4). A implementação de NeuroRun usa esses conceitos, com scripts próprios.
-- **Sprites, capa e UI:** formas geométricas originais criadas para este projeto. Os sprites são gerados por `NeuroRunBuilder.cs`.
+- **Sprites, capa e UI:** pixel art original em matrizes 16×16 e uma capa vetorial própria. As matrizes dos sprites estão em `NeuroRunBuilder.cs`. A inspiração mecânica em jogos de labirinto, como Pac-Man, não utiliza assets ou código desses jogos.
 - **Música e efeitos do jogo final:** síntese original por `Tools/generate_audio.py`, sem gravações externas.
-- **Fonte DejaVu Sans:** projeto DejaVu / Bitstream Vera. Licença incluída em `Assets/NeuroRun/Fonts/LICENSE-DejaVu.txt`.
+- **Fontes DejaVu Sans / Sans Mono:** projeto DejaVu / Bitstream Vera. Licença incluída em `Assets/NeuroRun/Fonts/LICENSE-DejaVu.txt`.
 - **Unity:** engine, template Universal 2D e pacotes oficiais indicados em `Packages/manifest.json`; recursos do template conservam suas licenças.
 - **Áudio preexistente do tutorial:** [Coin, por chieuk no Pixabay](https://pixabay.com/sound-effects/film-special-effects-coin-257878/), sob a [Pixabay Content License](https://pixabay.com/service/license-summary/). Conservado na cena original como `chieuk-coin-257878.mp3`; não utilizado no build NeuroRun.
 

@@ -1,47 +1,52 @@
-PASS Partida começa com 3 vidas
-PASS Gamepad virtual move jogador com analógico
-PASS Collider impede atravessar parede externa
-PASS Pausa congela o cronômetro
-PASS Tempo zero leva à derrota
-PASS Reiniciar restaura vidas, dados e estado
-PASS Trigger de inimigo aplica dano 1
-PASS Trigger de inimigo aplica dano 2
-PASS Trigger de inimigo aplica dano 3
-PASS Vida zero leva à derrota
-PASS Setor 1 carregado
-PASS Setor tem 3 coletáveis
-PASS Coleta por trigger libera núcleo
-PASS Entrada no núcleo abre desafio
-PASS Leitura do quiz não consome tempo
-PASS Erro mostra explicação e desconta 8s
-PASS Erro permite tentar novamente sem softlock
-PASS 3 acertos liberam próximo setor
-PASS Setor 2 carregado
-PASS Setor tem 3 coletáveis
-PASS Coleta por trigger libera núcleo
-PASS Entrada no núcleo abre desafio
-PASS 3 acertos liberam próximo setor
-PASS Setor 3 carregado
-PASS Setor tem 3 coletáveis
-PASS Coleta por trigger libera núcleo
-PASS Entrada no núcleo abre desafio
-PASS 3 acertos liberam próximo setor
-PASS Setor 4 carregado
-PASS Setor tem 3 coletáveis
-PASS Coleta por trigger libera núcleo
-PASS Entrada no núcleo abre desafio
-PASS 3 acertos liberam próximo setor
-PASS Setor 5 carregado
-PASS Setor tem 3 coletáveis
-PASS Coleta por trigger libera núcleo
-PASS Entrada no núcleo abre desafio
-PASS 3 acertos liberam próximo setor
-PASS Setor 6 carregado
-PASS Setor tem 3 coletáveis
-PASS Coleta por trigger libera núcleo
-PASS Entrada no núcleo abre desafio
-PASS Vitória após seis setores e 18 conceitos
-PASS Contagem distingue acerto de primeira de correção após erro
-PASS Resultado contém score e tempo final
-PASS É possível voltar ao menu após vencer
+PASS Mapa 1: todas as células acessíveis e sem becos
+PASS Mapa 2: todas as células acessíveis e sem becos
+PASS Mapa 3: todas as células acessíveis e sem becos
+PASS Mapa 4: todas as células acessíveis e sem becos
+PASS Mapa 5: todas as células acessíveis e sem becos
+PASS Mapa 6: todas as células acessíveis e sem becos
+PASS Início: 3 vidas, 6 disquetes e cota de 125 pontos
+PASS Três perseguidores desde o primeiro setor
+PASS Analógico move o jogador no corredor
+PASS Curva antecipada entra na esquina sem prender na parede
+PASS B aciona dash e inicia recarga de quatro segundos
+PASS Pausa congela tempo
+PASS Café para inimigos e protege de contato
+PASS Tempo zero causa derrota
+PASS Reinício restaura vidas e todos os itens
+PASS Dano desconta uma vida e seis segundos
+PASS Setor 1: seis disquetes e dois cafés
+PASS Disquetes ativam alarme mas não substituem cota de pontos
+PASS Coleta por trigger libera terminal
+PASS Terminal abre quiz após exploração
+PASS Quiz pausa cronômetro
+PASS Erro explica a resposta e custa oito segundos
+PASS É possível corrigir a resposta
+PASS Três acertos abrem próximo labirinto
+PASS Setor 2: seis disquetes e dois cafés
+PASS Disquetes ativam alarme mas não substituem cota de pontos
+PASS Coleta por trigger libera terminal
+PASS Terminal abre quiz após exploração
+PASS Três acertos abrem próximo labirinto
+PASS Setor 3: seis disquetes e dois cafés
+PASS Disquetes ativam alarme mas não substituem cota de pontos
+PASS Coleta por trigger libera terminal
+PASS Terminal abre quiz após exploração
+PASS Três acertos abrem próximo labirinto
+PASS Setor 4: seis disquetes e dois cafés
+PASS Disquetes ativam alarme mas não substituem cota de pontos
+PASS Coleta por trigger libera terminal
+PASS Terminal abre quiz após exploração
+PASS Três acertos abrem próximo labirinto
+PASS Setor 5: seis disquetes e dois cafés
+PASS Disquetes ativam alarme mas não substituem cota de pontos
+PASS Coleta por trigger libera terminal
+PASS Terminal abre quiz após exploração
+PASS Três acertos abrem próximo labirinto
+PASS Setor 6: seis disquetes e dois cafés
+PASS Disquetes ativam alarme mas não substituem cota de pontos
+PASS Coleta por trigger libera terminal
+PASS Terminal abre quiz após exploração
+PASS Vitória com 18 respostas e contagem de tentativas correta
+PASS Resultado final tem score e tempo
+PASS Retorno ao menu após vitória
 COMPLETE

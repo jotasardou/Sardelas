@@ -17,7 +17,7 @@ namespace NeuroRun.Editor
         {
             Directory.CreateDirectory(Root + "Art"); Directory.CreateDirectory(Root + "Scenes");
             var square = MakeSprite("Square", 0); var diamond = MakeSprite("Data", 1);
-            var ring = MakeSprite("Ring", 2); var robot = MakeSprite("Robot", 3); var bug = MakeSprite("Bug", 4);
+            var ring = MakeSprite("Ring", 2); var robot = MakeSprite("Robot", 3); var bug = MakeSprite("Bug", 4); var coffee = MakeSprite("Coffee", 5);
             AssetDatabase.Refresh();
             var shader = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default");
             if (shader == null) shader = Shader.Find("Sprites/Default");
@@ -28,11 +28,11 @@ namespace NeuroRun.Editor
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var background = new GameObject("Fundo").AddComponent<Camera>();
             background.depth = -1; background.cullingMask = 0; background.clearFlags = CameraClearFlags.SolidColor;
-            background.backgroundColor = new Color(.03f, .07f, .12f);
+            background.backgroundColor = new Color32(17, 25, 35, 255);
             var cameraObject = new GameObject("Main Camera"); cameraObject.tag = "MainCamera";
             var camera = cameraObject.AddComponent<Camera>(); camera.orthographic = true;
             camera.orthographicSize = 5.5f; camera.transform.position = new Vector3(0, 0, -10);
-            camera.clearFlags = CameraClearFlags.SolidColor; camera.backgroundColor = new Color(.03f, .07f, .12f);
+            camera.clearFlags = CameraClearFlags.SolidColor; camera.backgroundColor = new Color32(17, 25, 35, 255);
             camera.rect = new Rect(.025f, .13f, .70f, .68f); cameraObject.AddComponent<AudioListener>();
             var manager = new GameObject("NeuroRun");
             var sound = manager.AddComponent<NeuroAudio>();
@@ -42,12 +42,12 @@ namespace NeuroRun.Editor
             for (int i = 0; i < names.Length; i++) sound.effects[i] = AssetDatabase.LoadAssetAtPath<AudioClip>(Root + "Audio/" + names[i] + ".wav");
             var game = manager.AddComponent<NeuroRunGame>();
             game.square = square; game.diamond = diamond; game.ring = ring; game.robot = robot; game.bug = bug;
-            game.spriteMaterial = material; game.worldCamera = camera; game.sound = sound;
+            game.coffee = coffee; game.spriteMaterial = material; game.worldCamera = camera; game.sound = sound;
             game.playerPrefab = MakePrefab("Player", robot, material, 0);
             game.bugPrefab = MakePrefab("Bug", bug, material, 1);
             game.dataPrefab = MakePrefab("Dado", diamond, material, 2);
-            game.regularFont = AssetDatabase.LoadAssetAtPath<Font>(Root + "Fonts/DejaVuSans.ttf");
-            game.boldFont = AssetDatabase.LoadAssetAtPath<Font>(Root + "Fonts/DejaVuSans-Bold.ttf");
+            game.regularFont = AssetDatabase.LoadAssetAtPath<Font>(Root + "Fonts/DejaVuSansMono.ttf");
+            game.boldFont = AssetDatabase.LoadAssetAtPath<Font>(Root + "Fonts/DejaVuSansMono-Bold.ttf");
             EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene(), ScenePath);
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true), new EditorBuildSettingsScene("Assets/Scenes/SampleScene.unity", false) };
             PlayerSettings.companyName = "João Pedro Sardou"; PlayerSettings.productName = "NeuroRun";
@@ -62,11 +62,11 @@ namespace NeuroRun.Editor
             Directory.CreateDirectory(Root + "Prefabs");
             var go = new GameObject(name); var sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = sprite; sr.sharedMaterial = material; sr.sortingOrder = kind == 0 ? 8 : 4;
-            go.transform.localScale = Vector3.one * (kind == 0 ? .9f : kind == 1 ? .8f : .62f);
+            go.transform.localScale = Vector3.one * (kind == 0 ? .47f : kind == 1 ? .48f : .44f);
             var collider = go.AddComponent<CircleCollider2D>(); collider.radius = .36f;
             if (kind == 2)
             {
-                collider.isTrigger = true; sr.color = new Color(1, .85f, .32f);
+                collider.isTrigger = true; sr.color = Color.white;
                 go.AddComponent<DataPickup>();
             }
             else
@@ -117,39 +117,55 @@ namespace NeuroRun.Editor
         [System.Serializable]
         class BuildResult { public string status; public ulong bytes; public int errors, warnings; public double seconds; }
 
-        // Sprites geométricos originais: desenhados aqui, sem dependências externas.
+        // Pixel art original, desenhada em uma matriz 16x16. Cada letra é uma cor.
         static Sprite MakeSprite(string name, int kind)
         {
-            string path = Root + "Art/" + name + ".png";
-            var texture = new Texture2D(128, 128, TextureFormat.RGBA32, false);
-            for (int y = 0; y < 128; y++) for (int x = 0; x < 128; x++)
+            string[] disk = {
+                "................", "..YYYYYYYYYYYY..", "..YCCCCCCCCCYY..", "..YCBBBBBCCCYYY.",
+                "..YCBBBBBCCCYYY.", "..YCCCCCCCCCYYY.", "..YYYYYYYYYYYYY.", "..YYYYYYYYYYYYY.",
+                "..YYYWWWWWWWYYY.", "..YYYWBBBBBWYYY.", "..YYYWWWWWWWYYY.", "..YYYWBBBBBWYYY.",
+                "..YYYWWWWWWWYYY.", "..YYYYYYYYYYYYY.", "...YYYYYYYYYYY..", "................" };
+            string[] monitor = {
+                "................", "..CCCCCCCCCCCC..", ".CWWWWWWWWWWWWC.", ".CWBBBBBBBBBBWC.",
+                ".CWBGGGGGGBBBWC.", ".CWBBBBBBBBBBWC.", ".CWBGGGGBBBBBWC.", ".CWBBBBBBBBBBWC.",
+                ".CWBGGBBBBBBBWC.", ".CWWWWWWWWWWWWC.", ".CCCCCCCCCCCYCC.", "..CCCCCCCCCCCC..",
+                "......CCCC......", "....CCCCCCCC....", "....WWWWWWWW....", "................" };
+            string[] runner = {
+                "................", "......RRRR......", ".....RRRRRRR....", "....RRRRRRRRR...",
+                ".....CCCCCC.....", ".....CBBCCB.....", ".....CCCCCC.....", "......CCCC......",
+                "....RRWWRRRR....", "...CRRWWRRRRC...", "...CRRRRRRRRC...", "....RRRRRRRR....",
+                ".....BBBBBB.....", ".....BB..BB.....", "....WWW..WWW....", "................" };
+            string[] enemy = {
+                "................", "...W........W...", "....W......W....", "...WWWWWWWWWW...",
+                "..WWWWWWWWWWWW..", ".WWWBBWWWWBBWWW.", ".WWWBCWWWWBCWWW.", "..WWWWWWWWWWWW..",
+                ".WWWWWWWWWWWWWW.", ".WWWBWWWWWWBWWW.", "..WWWBBBBBBWWW..", "...WWWWWWWWWW...",
+                "....WW.WW.WW....", "...WW..WW..WW...", "................", "................" };
+            string[] cup = {
+                "................", "....C...C.......", ".....C...C......", "....C...C.......",
+                "..WWWWWWWWWW....", "..WYYYYYYYYWWWW.", "..WWWWWWWWWW..W.", "..WWWWWWWWWW..W.",
+                "..WWWRRRRWWW..W.", "..WWWRRRRWWWWWW.", "..WWWWWWWWWW....", "...WWWWWWWW.....",
+                "....WWWWWW......", "..CCCCCCCCCCCC..", "................", "................" };
+            var pixels = kind == 1 ? disk : kind == 2 ? monitor : kind == 3 ? runner : kind == 4 ? enemy : cup;
+            var texture = new Texture2D(16,16,TextureFormat.RGBA32,false);
+            for (int y=0;y<16;y++) for(int x=0;x<16;x++)
             {
-                float u = (x - 63.5f) / 64, v = (y - 63.5f) / 64;
-                float d = Mathf.Sqrt(u * u + v * v); Color color = Color.clear;
-                if (kind == 0) color = Color.white;
-                if (kind == 1 && Mathf.Abs(u) + Mathf.Abs(v) < .94f) color = Color.white;
-                if (kind == 2 && d > .78f && d < .94f) color = Color.white;
-                if (kind == 3)
-                {
-                    if (Mathf.Abs(u) < .67f && Mathf.Abs(v) < .8f) color = new Color(.88f, .97f, 1);
-                    if (Mathf.Abs(u) < .53f && v > -.02f && v < .50f) color = new Color(.05f, .19f, .27f);
-                    if ((Mathf.Abs(u - .28f) < .09f || Mathf.Abs(u + .28f) < .09f) && v > .13f && v < .32f) color = new Color(.45f, 1, .78f);
-                    if (Mathf.Abs(u) < .28f && v < -.36f && v > -.51f) color = new Color(.13f, .54f, .65f);
-                    if (Mathf.Abs(u) > .67f && Mathf.Abs(u) < .88f && Mathf.Abs(v) < .30f) color = new Color(.3f, .78f, .84f);
-                }
-                if (kind == 4)
-                {
-                    if (Mathf.Abs(u) + Mathf.Abs(v) < .95f) color = new Color(1, .35f, .55f);
-                    if ((Mathf.Abs(u - .28f) < .09f || Mathf.Abs(u + .28f) < .09f) && Mathf.Abs(v - .1f) < .13f) color = new Color(.12f, .04f, .12f);
-                    if (Mathf.Abs(u) < .25f && Mathf.Abs(v + .3f) < .05f) color = Color.white;
-                }
-                texture.SetPixel(x, y, color);
+                char c = kind == 0 ? 'W' : pixels[15-y][x];
+                Color color = Color.clear;
+                if(c=='W') color=Color.white;
+                if(c=='B') color=new Color32(22,30,39,255);
+                if(c=='C') color=new Color32(209,188,148,255);
+                if(c=='Y') color=new Color32(237,183,78,255);
+                if(c=='R') color=new Color32(210,83,57,255);
+                if(c=='G') color=new Color32(134,183,139,255);
+                texture.SetPixel(x,y,color);
             }
-            texture.Apply(); File.WriteAllBytes(path, texture.EncodeToPNG()); Object.DestroyImmediate(texture);
+            texture.Apply(); string path=Root+"Art/"+name+".png";
+            File.WriteAllBytes(path,texture.EncodeToPNG()); Object.DestroyImmediate(texture);
             AssetDatabase.ImportAsset(path);
-            var importer = (TextureImporter)AssetImporter.GetAtPath(path); importer.textureType = TextureImporterType.Sprite;
-            importer.spritePixelsPerUnit = 128; importer.mipmapEnabled = false; importer.alphaIsTransparency = true;
-            importer.filterMode = FilterMode.Bilinear; importer.textureCompression = TextureImporterCompression.Uncompressed;
+            var importer=(TextureImporter)AssetImporter.GetAtPath(path);
+            importer.textureType=TextureImporterType.Sprite; importer.spriteImportMode=SpriteImportMode.Single; importer.spritePixelsPerUnit=16;
+            importer.mipmapEnabled=false; importer.alphaIsTransparency=true;
+            importer.filterMode=FilterMode.Point; importer.textureCompression=TextureImporterCompression.Uncompressed;
             importer.SaveAndReimport(); return AssetDatabase.LoadAssetAtPath<Sprite>(path);
         }
     }

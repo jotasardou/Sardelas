@@ -11,11 +11,12 @@ Aluno: **João Pedro Sardou**. Prazo do PDF: **20/10/2026 às 23h50, horário de
 - `validation.txt`: resultado da validação integrada no Unity.
 - `build-report.json` e `browser-test.json`: compilação e teste real no Chrome, incluindo áudio e fullscreen.
 - `SHA256SUMS.txt`: checksum do ZIP final.
+- `BLACKBOARD.txt`: texto com os links para a atividade; usar depois de confirmar a publicação e a submissão na Jam.
 
 ## Publicar no itch.io
 
 1. Entre em https://itch.io/game/new com sua conta **jotasardou**.
-2. Título: **NeuroRun — Aprenda. Desvie. Evolua.**; slug sugerido: `neurorun`.
+2. Título: **NeuroRun — Plantão no laboratório**; slug sugerido: `neurorun`.
 3. Classificação: **Games**; tipo: **HTML**; preço: **No payments**.
 4. Envie `NeuroRun-WebGL.zip` e marque **This file will be played in the browser**.
 5. Configure a área de jogo como **960 × 638** (600 do jogo + 38 do rodapé do template Default). Habilite fullscreen e clique para iniciar.
@@ -36,9 +37,9 @@ O ZIP deve conter `index.html` na raiz e todas as pastas do build. O vídeo foi 
 
 ## Status
 
-- Implementação e validação no Editor: concluídas; ver `validation.txt`.
-- Build WebGL e teste no Chrome: concluídos. ZIP verificado, `index.html` na raiz, 17 arquivos e aproximadamente 18 MB.
+- Versão arcade: implementação e validação dos seis mapas concluídas; ver `validation.txt`.
+- Build WebGL e teste no Chrome: concluídos. ZIP verificado, `index.html` na raiz, 17 arquivos e aproximadamente 18 MB. Versão arcade com labirinto, seis disquetes, cota de pontos e perseguidores.
 - GitHub público e código enviado: confirmado em https://github.com/jotasardou/Sardelas.
-- Página itch.io publicada: pendente.
-- Submissão na Jam: pendente.
+- Página itch.io: rascunho arcade atualizado em https://jotasardou.itch.io/neurorun, com ZIP aceito, capa, quatro capturas, descrição, nome completo e GitHub. Publicação pendente por escolha do aluno, que está testando a revisão visual e de dificuldade.
+- Submissão na Jam: pendente; a conta já entrou na Jam.
 - Registro no Blackboard: depende do acesso do aluno e permanece pendente até confirmação.
