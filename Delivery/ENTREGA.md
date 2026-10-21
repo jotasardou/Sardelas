@@ -11,7 +11,7 @@ Aluno: **João Pedro Sardou**. Prazo do PDF: **20/10/2026 às 23h50, horário de
 - `validation.txt`: resultado da validação integrada no Unity.
 - `build-report.json` e `browser-test.json`: compilação e teste real no Chrome, incluindo áudio e fullscreen.
 - `SHA256SUMS.txt`: checksum do ZIP final.
-- `BLACKBOARD.txt`: texto com os links para a atividade; usar depois de confirmar a publicação e a submissão na Jam.
+- `BLACKBOARD.txt`: texto com os links confirmados do jogo, GitHub e submissão na Jam; pronto para copiar na atividade.
 
 ## Publicar no itch.io
 
@@ -40,6 +40,6 @@ O ZIP deve conter `index.html` na raiz e todas as pastas do build. O vídeo foi 
 - Versão arcade: implementação e validação dos seis mapas concluídas; ver `validation.txt`.
 - Build WebGL e teste no Chrome: concluídos. ZIP verificado, `index.html` na raiz, 17 arquivos e aproximadamente 18 MB. Versão arcade com labirinto, seis disquetes, cota de pontos e perseguidores.
 - GitHub público e código enviado: confirmado em https://github.com/jotasardou/Sardelas.
-- Página itch.io: rascunho arcade atualizado em https://jotasardou.itch.io/neurorun, com ZIP aceito, capa, quatro capturas, descrição, nome completo e GitHub. Publicação pendente por escolha do aluno, que está testando a revisão visual e de dificuldade.
-- Submissão na Jam: pendente; a conta já entrou na Jam.
-- Registro no Blackboard: depende do acesso do aluno e permanece pendente até confirmação.
+- Página itch.io: publicada em https://jotasardou.itch.io/neurorun, com ZIP aceito, capa, quatro capturas, descrição, nome completo e GitHub. Acesso público sem login confirmado.
+- Submissão na Jam: confirmada em https://itch.io/jam/projeto-intro-unity-insper-20262/rate/5199088, na categoria Engenharia de Computação. Comprovantes: `jam-confirmation.png` e `jam-submission.png`.
+- Registro no Blackboard: será realizado pelo aluno, conforme solicitado. Copiar os links de `BLACKBOARD.txt` e confirmar o envio até 20/10/2026 às 23h50.

@@ -140,4 +140,8 @@ Referências para as explicações de ML:
 
 ## Entrega externa
 
+- [Jogo publicado no itch.io](https://jotasardou.itch.io/neurorun), com acesso público confirmado.
+- [Submissão confirmada na Game Jam](https://itch.io/jam/projeto-intro-unity-insper-20262/rate/5199088), categoria Engenharia de Computação.
+- Blackboard: envio a ser realizado pelo aluno. Texto com os links em `Delivery/BLACKBOARD.txt`.
+
 A rubrica exige **GitHub público, jogo publicado no itch.io, submissão à Game Jam e registro completo no Blackboard**. Ter somente os arquivos locais ou um link de perfil não conclui essas etapas. Consulte `Delivery/ENTREGA.md` para os passos e o status verificado.

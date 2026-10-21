@@ -1,8 +1,14 @@
 {
   "url": "https://jotasardou.itch.io/neurorun",
-  "visibility": "draft",
+  "visibility": "published",
   "upload_id": 19913655,
   "version": "arcade",
   "screenshots": 4,
-  "browser_start_test": "rendered menu and started arena in itch.io iframe"
+  "browser_start_test": "rendered menu and started arena in itch.io iframe",
+  "anonymous_access_verified": true,
+  "jam_url": "https://itch.io/jam/projeto-intro-unity-insper-20262",
+  "jam_submission_url": "https://itch.io/jam/projeto-intro-unity-insper-20262/rate/5199088",
+  "jam_submitted": true,
+  "course": "Engenharia de Computação",
+  "blackboard_submitted": false
 }
